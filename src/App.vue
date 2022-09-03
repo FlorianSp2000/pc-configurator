@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <template>
   <div>
-    <TheNavbar></TheNavbar>
-    <TheNavbar2></TheNavbar2>
+    <UpperNavbar></UpperNavbar>
+    <LowerNavbar></LowerNavbar>
   </div>
 
   <div class="container">
@@ -12,14 +12,14 @@
 </template>
 
 <script>
-import TheNavbar2 from "@/components/TheNavbar2";
-import TheNavbar from "@/components/TheNavbar";
+import LowerNavbar from "@/components/LowerNavbar";
+import UpperNavbar from "@/components/UpperNavbar";
 
 
 export default {
   name: 'App',
   components: {
-    TheNavbar2, TheNavbar,
+    LowerNavbar, UpperNavbar,
   },
 }
 </script>

@@ -4,7 +4,7 @@ import FertigePcs from "@/pages/FertigePcs.vue";
 import PcSelbstKonfigurieren from "@/pages/PcSelbstKonfigurieren.vue";
 import UebersichtCpuKompabilitaet from "@/pages/UebersichtCpuKompabilitaet.vue";
 import PcKonfigurator from "@/pages/PcKonfigurator";
-
+import MyAuthentication from "@/pages/MyAuthentication"
 
 const router = createRouter({
     //optionen
@@ -29,6 +29,10 @@ const router = createRouter({
         {
             path: "/UebersichtCpuKompabilitaet",
             component: UebersichtCpuKompabilitaet,
+        },
+        {
+            path: "/auth",
+            component: MyAuthentication,
         },
     ]
 });

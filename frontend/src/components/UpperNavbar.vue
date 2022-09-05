@@ -5,10 +5,10 @@
   <div class="collapse navbar-collapse" id="navBarNav">
     <ul class="navbar-nav me-3">
       <li class="nav-item active">
-      <a href="#"  class="nav-link">Login</a>
+        <router-link to="/auth"  class="navbar-brand router-link-style">Login</router-link>
       </li>
       <li class="nav-item active">
-        <a href="#"  class="nav-link">Register</a>
+        <router-link to="/auth"  class="navbar-brand router-link-style">Registrierung</router-link>
       </li>
     </ul>
 </div>
@@ -25,6 +25,13 @@ export default {
 </script>
 
 <style scoped>
+
+.router-link-style {
+  color: rgba(255,255,255,0.5) !important;
+}
+.router-link-style:hover {
+  color: rgba(255,255,255, 0.99) !important;
+}
 .container{
   background-color: #141a1f;
   display:flex;
@@ -35,6 +42,9 @@ export default {
 }
 .navbar-expand-sm{
   padding-bottom: 0;
+}
+ul > li {
+  display: flex;
 }
 
 </style>

@@ -99,6 +99,34 @@ router.post('/login', (req,res,next) => {
     )
 });
 
+// Get All configurations
+router.get('/configuration', (req,res,next) => {
+    console.log("req.body", req.body)
+    db.query(`SELECT c.title as cpu, g.title as gpu, r.title as ram, m.title as mainboard, d.title as disk_storage, co.title, 
+        co.configuration_description, co.price, co.configuration_id
+        from configuration co join cpu_unit c on c.id = co.cpu_id 
+        join gpu_unit g on g.id = co.gpu_id
+        join ram r on r.id = co.ram_id
+        join motherboard m on m.id = co.motherboard_id
+        join disk_storage d on d.id = co.disk_storage_id;`,
+    (err, result) => {
+        console.log("result", result)
+        if (err) {
+            throw err;
+            return res.status(400).send({
+                message: err,
+            })
+        }
+                return res.status(200).send({
+                    message: "Configuration sent!",
+                    config_arr: result
+                })
+        }
+        )
+    }
+    )
+
+
 // /api/secret-route
 
 // Get Single user

@@ -8,62 +8,70 @@
 
   <select class="form-select" v-model="selectedPC" >
     <option value="0"> Wählen Sie einen vorkonfigurierten PC </option>
-    <option value="4KIHE">4K Gaming PC -INTEL</option>
-    <option value="4KAHE">2K Gaming PC - Intel</option>
-    <option value="3">2K Gaming PC -AMD</option>
-    <option value="4">Flugsimulator</option>
-    <option value="5">Mittlere Bereich HD Gaming PC- Intel</option>
-    <option value="6">Mittlere Bereich HD Gaming PC- AMD</option>
+    <option v-for="item in pcs" :key="item.configuration_id" v-bind:value="item.configuration_id">
+        {{ item.title }}
+    </option>
   </select>
   <br><br><br>
 
   <div class="specifications" v-if="specification">
-    <ConfigurationDescription :name="specification.title" :description="specification.description" :cpu="specification.cpu"
-              :gpu="specification.gpu" :ram="specification.ram" :mainboard="specification.mainboard">
+    <ConfigurationDescription :name="specification.title" :description="specification.configuration_description" :cpu="specification.cpu"
+              :gpu="specification.gpu" :ram="specification.ram" :mainboard="specification.mainboard" :disk_storage="specification.disk_storage"
+              :price="specification.price">
     </ConfigurationDescription>
 
   </div>
 
-
-
 </template>
 
 
-<script setup>
+<script>
 import ConfigurationDescription from "@/components/ConfigurationDescription";
-
+//import { defineProps } from 'vue'
+/*
 import {
-  ref, watch
+  ref,
+  //watch
 } from "vue";
-let selectedPC=ref(0)
-let pcs=ref(null)
+*/
+import axios from "axios";
+//let selectedPC=ref(0)
+//const pcs=ref([])
+//let specification=ref(null)
 
-pcs.value={
-  "4KIHE": {
-    "description":"Dieser PC fliegt wie eine Rakete. ",
-    "title": "4K Gaming PC - INTEL",
-    "cpu": "Intel Core i9-1200K",
-    "gpu": "Nvidia RTX 3080",
-    "ram": "16 GB DDR4",
-    "mainboard": "AMD"
+export default {
+  components: {
+    ConfigurationDescription
   },
-  "4KAHE": {
-    "title": "4K Gaming PC- AMD",
-    "cpu": "AMD CPU",
-  }
+  data() {
+    return {
+      pcs: [],
+      selectedPC: 0,
+      specification: null,
+    }
+  },
+  watch: {
+    selectedPC(newSelectedPc) {
+      console.log("newSelectedPc",newSelectedPc)
+      this.specification= this.pcs[newSelectedPc]
+      console.log("this.pcs[newSelectedPc]", this.pcs[newSelectedPc])
+    }
+  },
+  created() {
+    axios.get(`http://localhost:5000/api/configuration`)
+        .then(response => {
+          this.pcs = response.data.config_arr;
+          console.log("response.data.config_arr", response.data.config_arr)
+        })
+        .catch(error => {
+          console.error("Error occurred", error)
+        })
 
+  },
 
 }
-let specification=ref(null)
-specification.value= pcs.value[selectedPC.value]
 
 
-watch(() => selectedPC.value, () => {
-  console.log("selected",selectedPC),
-  //console.log("pc",pcs.value["4KIHE"]),
-  specification.value= pcs.value[selectedPC.value]
-
-});
 
 </script>
 

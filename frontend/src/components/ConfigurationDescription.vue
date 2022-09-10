@@ -21,9 +21,17 @@
         <th scope="row">Mainboard</th>
         <td colspan="2">{{ mainboard }}</td>
       </tr>
+      <tr>
+        <th scope="row">Festplatte</th>
+        <td colspan="2">{{ disk_storage }}</td>
+      </tr>
+
       </tbody>
     </table>
-    <button type="button" class="btn btn-primary">Komponenten ändern</button>
+    <div class="align-text-button">
+      <p class="price-text"> {{ price }}€</p>
+      <button type="button" class="btn btn-primary">Komponenten ändern</button>
+    </div>
   </div>
 
 </template>
@@ -38,7 +46,9 @@ export default {
       'cpu',
       'gpu',
       'ram',
-      'mainboard'
+      'mainboard',
+      'disk_storage',
+      'price'
   ]
 }
 
@@ -61,5 +71,20 @@ table {
 button {
   position: relative;
   left: 27%;
+}
+
+.align-text-button {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  width: 58vw;
+  margin-bottom: 0.5em;
+  max-height: 50px;
+}
+
+.price-text {
+  font-size: 1.875rem;
+  color: #42BD91;
+  margin-right: 0.75em;
 }
 </style>

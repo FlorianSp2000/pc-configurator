@@ -1,6 +1,7 @@
 <template>
   <div class="Uebersicht">
-    <h1> Hier sind CPU Übersicht</h1>
+    <h2 :style="{marginTop: ['20px']}">Erstelle deine eigene PC-Konfiguration</h2>
+    <br><br>
   </div>
 </template>
 

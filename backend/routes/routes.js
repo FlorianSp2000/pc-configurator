@@ -127,6 +127,130 @@ router.get('/configuration', (req,res,next) => {
     )
 
 
+// Get All configurations
+router.get('/cpu', (req,res,next) => {
+    console.log("req.body", req.body)
+    db.query(`SELECT c.title as cpu from configuration co join cpu_unit c on c.id = co.cpu_id;`,
+    (err, result) => {
+        result = result.map(function(item) {
+            return item['cpu'];
+          });
+          
+        console.log("result", result)
+        if (err) {
+            throw err;
+            return res.status(400).send({
+                message: err,
+            })
+        }
+                return res.status(200).send({
+                    message: "Configuration sent!",
+                    result: result
+                })
+        }
+        )
+    }
+    )
+    
+// Get All configurations
+router.get('/gpu', (req,res,next) => {
+    console.log("req.body", req.body)
+    db.query(`SELECT g.title as gpu from configuration co join gpu_unit g on g.id = co.gpu_id;`,
+    (err, result) => {
+        result = result.map(function(item) {
+            return item['gpu'];
+          });
+
+        console.log("result", result)
+        if (err) {
+            throw err;
+            return res.status(400).send({
+                message: err,
+            })
+        }
+                return res.status(200).send({
+                    message: "Configuration sent!",
+                    result: result
+                })
+        }
+        )
+    }
+    )
+
+// Get All configurations
+router.get('/ram', (req,res,next) => {
+    console.log("req.body", req.body)
+    db.query(`SELECT r.title as ram from configuration co join ram r on r.id = co.ram_id;`,
+    (err, result) => {
+        result = result.map(function(item) {
+            return item['ram'];
+          });
+
+        console.log("result", result)
+        if (err) {
+            throw err;
+            return res.status(400).send({
+                message: err,
+            })
+        }
+                return res.status(200).send({
+                    message: "Configuration sent!",
+                    result: result
+                })
+        }
+        )
+    }
+    )
+
+// Get All configurations
+router.get('/disk_storage', (req,res,next) => {
+    console.log("req.body", req.body)
+    db.query(`SELECT d.title as d from configuration co join disk_storage d on d.id = co.disk_storage_id;`,
+    (err, result) => {
+        result = result.map(function(item) {
+            return item['d'];
+          });
+
+        console.log("result", result)
+        if (err) {
+            throw err;
+            return res.status(400).send({
+                message: err,
+            })
+        }
+                return res.status(200).send({
+                    message: "Configuration sent!",
+                    result: result
+                })
+        }
+        )
+    }
+    )
+
+// Get All configurations
+router.get('/motherboard', (req,res,next) => {
+    console.log("req.body", req.body)
+    db.query(`SELECT m.title as m from configuration co join motherboard m on m.id = co.motherboard_id;`,
+    (err, result) => {
+        result = result.map(function(item) {
+            return item['m'];
+          });
+
+        console.log("result", result)
+        if (err) {
+            throw err;
+            return res.status(400).send({
+                message: err,
+            })
+        }
+                return res.status(200).send({
+                    message: "Configuration sent!",
+                    result: result
+                })
+        }
+        )
+    }
+    )
 // /api/secret-route
 
 // Get Single user

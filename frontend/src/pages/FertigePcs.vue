@@ -1,7 +1,6 @@
 <template>
   <div class="Uebersicht">
-    <br><br>
-    <h1> Durchstöbere bereits fertige Konfigurationen</h1>
+    <h2 :style="{marginTop: ['20px']}"> Durchstöbere bereits fertige Konfigurationen</h2>
     <br><br>
   </div>
 
@@ -27,17 +26,8 @@
 
 <script>
 import ConfigurationDescription from "@/components/ConfigurationDescription";
-//import { defineProps } from 'vue'
-/*
-import {
-  ref,
-  //watch
-} from "vue";
-*/
+
 import axios from "axios";
-//let selectedPC=ref(0)
-//const pcs=ref([])
-//let specification=ref(null)
 
 export default {
   components: {
@@ -53,7 +43,7 @@ export default {
   watch: {
     selectedPC(newSelectedPc) {
       console.log("newSelectedPc",newSelectedPc)
-      this.specification= this.pcs[newSelectedPc]
+      this.specification= this.pcs[newSelectedPc - 1]
       console.log("this.pcs[newSelectedPc]", this.pcs[newSelectedPc])
     }
   },

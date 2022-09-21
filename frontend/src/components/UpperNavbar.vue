@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-sm navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark">
 <div class="container">
   <router-link to="/"  class="navbar-brand">PC-Konfigurator</router-link>
   <div class="collapse navbar-collapse" id="navBarNav">
@@ -36,11 +36,12 @@ export default {
   background-color: #141a1f;
   display:flex;
   justify-content: space-between;
+  max-width: 100vw;
 }
 .container > div {
   flex-direction: row-reverse;
 }
-.navbar-expand-sm{
+.navbar-expand-lg{
   padding-bottom: 0;
 }
 ul > li {

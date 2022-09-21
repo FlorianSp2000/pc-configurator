@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 <template>
-  <div>
+  <div :style="{position: ['sticky'], top: ['0px']}">
     <UpperNavbar></UpperNavbar>
     <LowerNavbar></LowerNavbar>
   </div>
@@ -34,6 +34,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>

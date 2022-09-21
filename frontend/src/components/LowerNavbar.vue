@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
       <div class="collapse navbar-collapse" id="navBarNav">
         <ul class="navbar-nav">
@@ -30,8 +30,12 @@ export default {
 .container {
   background-color: #2c3e50;
 }
-.navbar-expand-sm{
+
+.navbar-expand-lg{
   padding-bottom: 0;
   padding-top: 0;
+}
+.container {
+  max-width: 100vw;
 }
 </style>

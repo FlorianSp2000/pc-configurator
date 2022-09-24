@@ -13,19 +13,19 @@
       </tr>
       <tr>
         <th scope="row">GPU</th>
-        <td><span> {{ gpu }} </span><sup><a target="_blank" v-bind:href="`https://www.amazon.de/s?k=${cpu}`"><img alt="b" :src="'/amazon_icon.svg'"></a></sup></td>
+        <td><span> {{ gpu }} </span><sup><a target="_blank" v-bind:href="`https://www.amazon.de/s?k=${gpu}`"><img alt="b" :src="'/amazon_icon.svg'"></a></sup></td>
       </tr>
       <tr>
         <th scope="row">RAM</th>
-        <td colspan="2"><span> {{ ram }} </span><sup><a target="_blank" v-bind:href="`https://www.amazon.de/s?k=${cpu}`"><img alt="b" :src="'/amazon_icon.svg'"></a></sup></td>
+        <td colspan="2"><span> {{ ram }} </span><sup><a target="_blank" v-bind:href="`https://www.amazon.de/s?k=${ram}`"><img alt="b" :src="'/amazon_icon.svg'"></a></sup></td>
       </tr>
       <tr>
         <th scope="row">Mainboard</th>
-        <td colspan="2"><span> {{ mainboard }} </span><sup><a target="_blank" v-bind:href="`https://www.amazon.de/s?k=${cpu}`"><img alt="b" :src="'/amazon_icon.svg'"></a></sup></td>
+        <td colspan="2"><span> {{ mainboard }} </span><sup><a target="_blank" v-bind:href="`https://www.amazon.de/s?k=${mainboard}`"><img alt="b" :src="'/amazon_icon.svg'"></a></sup></td>
       </tr>
       <tr>
         <th scope="row">Festplatte</th>
-        <td colspan="2"><span> {{ disk_storage }} </span><sup><a target="_blank" v-bind:href="`https://www.amazon.de/s?k=${cpu}`"><img alt="b" :src="'/amazon_icon.svg'"></a></sup></td>
+        <td colspan="2"><span> {{ disk_storage }} </span><sup><a target="_blank" v-bind:href="`https://www.amazon.de/s?k=${disk_storage}`"><img alt="b" :src="'/amazon_icon.svg'"></a></sup></td>
       </tr>
 
       </tbody>
@@ -33,8 +33,8 @@
     <div class="align-text-button">
       <div>
         <p class="price-text" v-show="price != undefined"> {{ price }}€</p>
-        <button type="button" class="btn btn-outline-warning" v-show="price == undefined">
-          <a target="_blank" v-bind:href="`https://pcbuilder.net/?s=${cpu}`">Kompatibilitätscheck</a>
+        <button @click="checkCompatibility" type="button" class="btn btn-outline-warning" v-show="price == undefined">
+          Kompabilitätscheck ausführen
         </button>
       </div>
       <div>
@@ -44,6 +44,8 @@
         </div>
       </div>
     </div>
+    <p class="checked-text" v-show="this.checked">Alle Komponenten sind miteinander kompatibel!</p>
+    <p class="error-text" v-show="this.error">Prozessor und Mainboard sind nicht kompatibel!</p>
   </div>
 
 </template>
@@ -61,7 +63,52 @@ export default {
       'mainboard',
       'disk_storage',
       'price'
-  ]
+  ],
+  data() {
+    return {
+      error: false,
+      checked: false,
+    }
+  },
+
+  methods: {
+    checkCompatibility(){
+      console.log("this...", this.cpu)
+      console.log(this.mainboard)
+      this.error = false;
+      this.checked = false;
+      const amd_mainboards = [
+        "Gigabyte X570S AERO G",
+        "Asus TUF Gaming X570-Pro WiFi",
+        "Gigabyte B550 Aorus Elite AX V2",
+        "Asus TUF Gaming B550-Plus",
+        "Gigabyte B550M Aorus Pro-P",
+        "MSI B550M-A Pro",
+        "Gigabyte B550I Aorus Pro AX",
+      ]
+      if (amd_mainboards.includes(this.mainboard) && this.cpu.includes('AMD')) {
+          this.checked = true;
+      }
+      else if(!amd_mainboards.includes(this.mainboard) && !this.cpu.includes('AMD')) {
+        this.checked = true;
+      }
+      else {
+        this.error = true;
+      }
+    }
+  },
+  watch: {
+    cpu() {
+      console.log()
+      this.checked = false;
+      this.error = false;
+    },
+    mainboard() {
+      this.checked = false;
+      this.error = false;
+    }
+
+  }
 }
 
 </script>
@@ -93,12 +140,26 @@ button {
   margin-bottom: 0.5em;
   max-height: 50px;
 }
-
 .price-text {
   font-size: 1.875rem;
   color: #42BD91;
   margin-right: 0.75em;
 }
+@media (max-width: 700px) {
+  .align-text-button {
+    width: 38vw;
+    flex-direction: column;
+  }
+  .price-text {
+    margin-left: 1rem;
+    margin-right: 0.25em;
+    font-size: 1.6rem;
+  }
+  .btn {
+    margin-bottom: 2rem;
+  }
+}
+
 img {
   width: 18px;
   height: 18px;
@@ -114,4 +175,21 @@ button:hover > a {
   color: #000;
   transition: 0.3s color ease-in-out;
 }
-</style>
+.checked-text {
+  color: green;
+  text-align: left;
+  margin-left: 10vw;
+}
+.error-text {
+  color: darkred;
+  text-align: left;
+  margin-left: 10vw;
+}
+@media (max-width: 600px){
+  .checked-text {
+    max-width: 70vw;
+  }
+  .error-text {
+    max-width: 70vw;
+  }
+}</style>

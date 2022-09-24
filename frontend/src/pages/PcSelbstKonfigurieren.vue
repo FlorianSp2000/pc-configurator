@@ -87,7 +87,6 @@
          <ConfigurationDescription :cpu="cpu_selected"
                                    :gpu="gpu_selected" :ram="ram_selected" :mainboard="mainboard_selected" :disk_storage="disk_storage_selected"
                                    :name="name" :description="description" v-show="show_config">
-
          </ConfigurationDescription>
    </div>
   </div>
@@ -122,6 +121,7 @@ export default {
     }
   },
   created() {
+
     const promise1 = axios.get('http://localhost:5000/api/cpu');
     const promise2 = axios.get('http://localhost:5000/api/gpu');
     const promise3 = axios.get('http://localhost:5000/api/ram');
@@ -130,17 +130,23 @@ export default {
 
     Promise.all([promise1, promise2, promise3, promise4, promise5]).then( (values) => {
       console.log(values);
-      this.cpu =  values[0].data.result
-      this.gpu =  values[1].data.result
-      this.ram =  values[2].data.result
-      this.mainboard =  values[3].data.result
-      this.disk_storage =  values[4].data.result
+      this.cpu =  [...new Set(values[0].data.result)]
+      this.gpu =  [...new Set(values[1].data.result)].filter(function(item) {
+        if(item != 'Integrated graphics') {
+          return item;
+        }
+      })
+      this.ram =  [...new Set(values[2].data.result)]
+      this.mainboard =  [...new Set(values[3].data.result)]
+      console.log(this.mainboard)
+      this.disk_storage =  [...new Set(values[4].data.result)]
     });
 
   },
   methods: {
     changeCPU(option) {
       this.cpu_selected = option
+      this.show_config = false;
     },
     changeGPU(option) {
       this.gpu_selected = option
@@ -150,13 +156,14 @@ export default {
     },
     changeMain(option) {
       this.mainboard_selected = option
+      this.show_config = false;
     },
     changeDisk(option) {
       this.disk_storage_selected = option
     },
     showConfiguration() {
       this.show_config = true;
-    }
+    },
   }
 };
 
@@ -176,12 +183,18 @@ th{
   overflow-y: scroll;
 }
 .btn {
-  width: 425px;
+  width: 25vw;
+  overflow: hidden;
 }
 .configuration-btn-box {
   margin-top: 35px;
   justify-content: flex-start;
   display: flex;
+}
+@media (max-width: 700px) {
+  .btn {
+    width: 55vw;
+  }
 }
 .configuration-btn {
   width: 230px;

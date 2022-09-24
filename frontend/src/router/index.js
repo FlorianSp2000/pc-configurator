@@ -3,8 +3,8 @@ import {createRouter, createWebHistory} from "vue-router";
 import FertigePcs from "@/pages/FertigePcs.vue";
 import PcSelbstKonfigurieren from "@/pages/PcSelbstKonfigurieren.vue";
 import UebersichtCpuKompabilitaet from "@/pages/UebersichtCpuKompabilitaet.vue";
-import PcKonfigurator from "@/pages/PcKonfigurator";
-import MyAuthentication from "@/pages/MyAuthentication"
+import MyRegistration from "@/pages/MyRegistration"
+import LogIn from "@/pages/LogIn"
 
 const router = createRouter({
     //optionen
@@ -13,7 +13,7 @@ const router = createRouter({
 
         {
             path: "/",
-            component: PcKonfigurator,
+            component: PcSelbstKonfigurieren,
             name:'Startseite'
         },
         {
@@ -31,8 +31,12 @@ const router = createRouter({
             component: UebersichtCpuKompabilitaet,
         },
         {
-            path: "/auth",
-            component: MyAuthentication,
+            path: "/login",
+            component: LogIn,
+        },
+        {
+            path: "/sign-up",
+            component: MyRegistration,
         },
     ]
 });
